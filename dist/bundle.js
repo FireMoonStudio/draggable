@@ -11,9 +11,9 @@
 
             init() {
                 this.elements.forEach(el => {
-                    // منع HTML5 dragstart
+                 
                     el.addEventListener('dragstart', e => e.preventDefault());
-                    // استماع لبداية السحب (ماوس ولمس)
+                 
                     el.addEventListener('mousedown', e => this.startDrag(e, el));
                     el.addEventListener('touchstart', e => {
                         e.preventDefault();
@@ -21,7 +21,7 @@
                     }, { passive: false });
                 });
 
-                // السحب والتحرير على مستوى المستند
+                
                 document.addEventListener('mousemove', e => this.onDrag(e));
                 document.addEventListener('touchmove', e => {
                     if (this.dragging) {
@@ -35,7 +35,7 @@
             }
 
             startDrag(e, el) {
-                e.preventDefault(); // يمنع تحديد النص
+                e.preventDefault(); 
                 this.dragging = el;
                 this.offsetX = e.clientX - el.offsetLeft;
                 this.offsetY = e.clientY - el.offsetTop;
@@ -61,7 +61,7 @@
             }
         }
 
-        // استدعاء الكلاس على العناصر المحددة
+        
         new Draggable('[data-draggable="true"]');
     });
 
