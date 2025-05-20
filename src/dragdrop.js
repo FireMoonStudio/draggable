@@ -8,9 +8,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
         init() {
             this.elements.forEach(el => {
-                // منع HTML5 dragstart
+              
                 el.addEventListener('dragstart', e => e.preventDefault());
-                // استماع لبداية السحب (ماوس ولمس)
+            
                 el.addEventListener('mousedown', e => this.startDrag(e, el));
                 el.addEventListener('touchstart', e => {
                     e.preventDefault();
@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 }, { passive: false });
             });
 
-            // السحب والتحرير على مستوى المستند
+      
             document.addEventListener('mousemove', e => this.onDrag(e));
             document.addEventListener('touchmove', e => {
                 if (this.dragging) {
@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
             let x = e.clientX - this.offsetX;
             let y = e.clientY - this.offsetY;
 
-            // منع الخروج من حدود النافذة (اختياري)
+           
             const maxX = window.innerWidth - this.dragging.offsetWidth;
             const maxY = window.innerHeight - this.dragging.offsetHeight;
             x = Math.max(0, Math.min(x, maxX));
@@ -58,6 +58,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // استدعاء الكلاس على العناصر المحددة
+ 
     new Draggable('[data-draggable="true"]');
 });
