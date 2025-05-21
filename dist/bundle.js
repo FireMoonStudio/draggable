@@ -11,9 +11,16 @@
 
             init() {
                 this.elements.forEach(el => {
-                 
+                    // إذا لم يكن للعنصر موقع مناسب، عيّنه
+                    const style = window.getComputedStyle(el);
+                    if (!['absolute', 'fixed', 'relative'].includes(style.position)) {
+                        el.style.position = 'absolute';
+                    }
+
+                    // إبطال السلوك الافتراضي للسحب القياسي
                     el.addEventListener('dragstart', e => e.preventDefault());
-                 
+
+                    // إعداد المستمعين للفأرة واللمس
                     el.addEventListener('mousedown', e => this.startDrag(e, el));
                     el.addEventListener('touchstart', e => {
                         e.preventDefault();
@@ -21,7 +28,6 @@
                     }, { passive: false });
                 });
 
-                
                 document.addEventListener('mousemove', e => this.onDrag(e));
                 document.addEventListener('touchmove', e => {
                     if (this.dragging) {
@@ -35,7 +41,7 @@
             }
 
             startDrag(e, el) {
-                e.preventDefault(); 
+                e.preventDefault();
                 this.dragging = el;
                 this.offsetX = e.clientX - el.offsetLeft;
                 this.offsetY = e.clientY - el.offsetTop;
@@ -46,7 +52,7 @@
                 let x = e.clientX - this.offsetX;
                 let y = e.clientY - this.offsetY;
 
-                // منع الخروج من حدود النافذة (اختياري)
+                // حافظ على العنصر داخل إطار النافذة
                 const maxX = window.innerWidth - this.dragging.offsetWidth;
                 const maxY = window.innerHeight - this.dragging.offsetHeight;
                 x = Math.max(0, Math.min(x, maxX));
@@ -61,8 +67,8 @@
             }
         }
 
-        
         new Draggable('[data-draggable="true"]');
     });
+
 
 })();

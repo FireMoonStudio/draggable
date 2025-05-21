@@ -1,6 +1,6 @@
 {
   "name": "@fire-moon-studio/draggable-js",
-  "version": "1.0.0",
+  "version": "1.4.0",
   "description": "Library for animating HTML elements",
   "main": "dist/draggable.umd.js",
   "type": "module",

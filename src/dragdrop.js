@@ -8,9 +8,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
         init() {
             this.elements.forEach(el => {
-              
+
+                const style = window.getComputedStyle(el);
+                if (!['absolute', 'fixed', 'relative'].includes(style.position)) {
+                    el.style.position = 'absolute';
+                }
+
+
                 el.addEventListener('dragstart', e => e.preventDefault());
-            
+
+
                 el.addEventListener('mousedown', e => this.startDrag(e, el));
                 el.addEventListener('touchstart', e => {
                     e.preventDefault();
@@ -18,7 +25,6 @@ window.addEventListener('DOMContentLoaded', () => {
                 }, { passive: false });
             });
 
-      
             document.addEventListener('mousemove', e => this.onDrag(e));
             document.addEventListener('touchmove', e => {
                 if (this.dragging) {
@@ -32,7 +38,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         startDrag(e, el) {
-            e.preventDefault(); // يمنع تحديد النص
+            e.preventDefault();
             this.dragging = el;
             this.offsetX = e.clientX - el.offsetLeft;
             this.offsetY = e.clientY - el.offsetTop;
@@ -43,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
             let x = e.clientX - this.offsetX;
             let y = e.clientY - this.offsetY;
 
-           
+
             const maxX = window.innerWidth - this.dragging.offsetWidth;
             const maxY = window.innerHeight - this.dragging.offsetHeight;
             x = Math.max(0, Math.min(x, maxX));
@@ -58,6 +64,5 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
- 
     new Draggable('[data-draggable="true"]');
 });
